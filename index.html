@@ -2,390 +2,224 @@
 <html lang="en">
 
 <head>
-    <title>Edmond Yang</title>
     <meta charset="utf-8" />
-    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport" />
+    <meta name="theme-color" content="#1a1f4a" />
+    <title>Edmond Yang</title>
 
-    <!-- Favicons -->
     <link href="assets/img/favicon.png" rel="icon" />
     <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon" />
 
-    <!-- Google Fonts -->
-
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap" rel="stylesheet" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap" rel="stylesheet" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&family=STIX+Two+Math&display=swap"
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
         rel="stylesheet" />
 
-    <!-- Vendor CSS Files -->
-    <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet" />
-    <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet" />
-    <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet" />
-    <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet" />
+    <link href="assets/css/desktop.css" rel="stylesheet" />
 
-    <!-- Template Main CSS File -->
-    <link href="assets/css/style.css" rel="stylesheet" />
+    <script type="module" src="https://cdn.jsdelivr.net/npm/ionicons@7.4.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://cdn.jsdelivr.net/npm/ionicons@7.4.0/dist/ionicons/ionicons.js"></script>
 </head>
 
 <body>
-    <!-- ======= Header ======= -->
-    <header id="header" class="fixed-top">
-        <div class="container d-flex align-items-center justify-content-between" style="position: relative">
-            <h1 class="glitch" style="
-            font-size: 25px;
-            font-family: 'Montserrat', sans-serif;
-            bottom: -7px;
-          ">
-                <span aria-hidden="true" style="
-              font-size: 25px;
-              font-family: 'Montserrat', sans-serif;
-              bottom: -7px;me
-            ">EDMOND_YANG</span>
-                EDMOND_YANG
-                <span aria-hidden="true" style="
-              font-size: 25px;
-              font-family: 'Montserrat', sans-serif;
-              bottom: -7px;
-            ">EDMOND_YANG</span>
-            </h1>
-            <!-- Navigation bar -->
-            <nav id="navbar" class="navbar">
-                <ul>
-                    <li><a class="nav-link scrollto active" href="#hero">HOME</a></li>
-                    <li><a class="nav-link scrollto" href="#about">ABOUT</a></li>
-                    <li><a class="nav-link scrollto" href="#skills">SKILLS</a></li>
-                    <li>
-                        <a class="nav-link scrollto" href="#portfolio">PORTFOLIO</a>
-                    </li>
-                    <li><a class="nav-link scrollto" href="#contact">CONTACT</a></li>
-                    <li>
-                        <a class="nav-link scrollto" href="assets/img/resume.pdf">RESUME</a>
-                    </li>
-                </ul>
-                <i class="bi bi-list mobile-nav-toggle"></i>
-            </nav>
-            <!-- End Navigation bar -->
-        </div>
-    </header>
-    <!-- End Header -->
 
-    <!-- ======= Hero Section ======= -->
-    <div id="hero" class="home">
-        <div id="landing-page">
-            <div class="container">
-                <div class="hero-content">
-                    <canvas id="canvas1"></canvas>
-                    <h1>welcome, i'm</h1>
-                    <h1>
-                        <span class="typed" data-typed-items="Edmond Yang., an aspiring software developer."></span>
-                    </h1>
-                    <p>looking to delve deep into the world of computer science</p>
+    <!-- ================= DESKTOP ================= -->
+    <main class="desktop" id="desktop">
 
-                    <ul class="list-unstyled list-social">
-                        <li>
-                            <a href="https://github.com/Edmond0511" target="_blank"><i class="bi bi-github"></i></a>
-                        </li>
-                        <li>
-                            <a href="mailto:edmondyang11@gmail.com" target="_blank"><i class="bi bi-envelope"></i></a>
-                        </li>
-                        <li>
-                            <a href="https://www.linkedin.com/in/edmond-yang11" target="_blank"><i
-                                    class="bi bi-linkedin"></i></a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- End Hero -->
+        <!-- Particle background canvas -->
+        <canvas id="canvas1"></canvas>
 
-    <main id="main">
-        <!-- ======= About Section ======= -->
-        <div id="about" class="paddsection">
-            <div class="container">
-                <div class="container">
-                    <div class="section-title text-center"></div>
-                </div>
-                <div class="row justify-content-center">
-                    <div class="col-lg-8">
-                        <div class="about-descr">
-                            <h2 class="p-heading" style="font-family: sans-serif">About Me</h2>
-                            <p class="separator">
-                                Hello! I'm a computer engineering student at the University of Waterloo (3A).
-                                <br />
-                                <br>
-                                I have always been exposed to different
-                                mediums of technology. From classic browser games to
-                                VR simulators, I've always been fascinated by these intricate
-                                creations and its infinite capabilties. As I grew older, I
-                                naturally became intrigued by the science behind these
-                                applications — inspired to create the same things that had
-                                amazed me. This is where my interest in coding began. As I
-                                continue to expand my knowledge in this field, I hope to
-                                showcase my progression through personal projects and tackling
-                                various problem-sets.
-                                <br /><br />
-                                Beyond that, I enjoy reading, speedcubing, walking my dog, and
-                                immersing myself into new skills.
-                            </p>
-                            <button>
-                                <a href="assets/img/resume.pdf">Download Resume</a>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- End About Section -->
-
-        <!-- ======= Skills & Interests Section ======= -->
-        <div id="skills" class="paddsection">
-            <div class="container">
-                <div class="section-title text-center" style="margin-bottom: 70px">
-                    <h2>Skills & Interests</h2>
-                </div>
-                <div class="div-img-bg">
-                    <div class="skills-slider swiper-container" data-aos="fade-up" data-aos-delay="100">
-                        <div class="swiper-wrapper">
-                            <div class="swiper-slide">
-                                <div class="skills-block">
-                                    <i class="bi bi-lightbulb"></i>
-                                    <span>Web Development</span>
-                                    <p class="separator">
-                                        I have created websites for my workplace and for various
-                                        other personal projects. Focusing on my implementing
-                                        different libraries and frameworks to further advance the
-                                        functionality and visual appeal of my projects.
-                                    </p>
-                                </div>
-                            </div>
-
-                            <div class="swiper-slide">
-                                <div class="skills-block">
-                                    <i class="bi bi-cpu"></i>
-                                    <span>Programming Languages</span>
-                                    <p class="separator">
-                                        Proficient in C/C++, HTML/CSS, JavaScript, Java and Python. I also try to create something with each
-                                        language I learn!
-                                    </p>
-                                </div>
-                            </div>
-
-                            <div class="swiper-slide">
-                                <div class="skills-block">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="43" height="43" fill="currentColor"
-                                        class="bi bi-robot" viewBox="0 0 16 16" style="fill: #314E59">
-                                        <path
-                                            d="M6 12.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5ZM3 8.062C3 6.76 4.235 5.765 5.53 5.886a26.58 26.58 0 0 0 4.94 0C11.765 5.765 13 6.76 13 8.062v1.157a.933.933 0 0 1-.765.935c-.845.147-2.34.346-4.235.346-1.895 0-3.39-.2-4.235-.346A.933.933 0 0 1 3 9.219V8.062Zm4.542-.827a.25.25 0 0 0-.217.068l-.92.9a24.767 24.767 0 0 1-1.871-.183.25.25 0 0 0-.068.495c.55.076 1.232.149 2.02.193a.25.25 0 0 0 .189-.071l.754-.736.847 1.71a.25.25 0 0 0 .404.062l.932-.97a25.286 25.286 0 0 0 1.922-.188.25.25 0 0 0-.068-.495c-.538.074-1.207.145-1.98.189a.25.25 0 0 0-.166.076l-.754.785-.842-1.7a.25.25 0 0 0-.182-.135Z" />
-                                        <path
-                                            d="M8.5 1.866a1 1 0 1 0-1 0V3h-2A4.5 4.5 0 0 0 1 7.5V8a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1v1a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-1a1 1 0 0 0 1-1V9a1 1 0 0 0-1-1v-.5A4.5 4.5 0 0 0 10.5 3h-2V1.866ZM14 7.5V13a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V7.5A3.5 3.5 0 0 1 5.5 4h5A3.5 3.5 0 0 1 14 7.5Z" />
-                                    </svg>
-                                    <span>First Robotics - Team 1246</span>
-                                    <p class="separator">
-                                        Worked in a team with 3 other programmers to build the 2022 FRC challenge
-                                        robot with Java. Responsible for implementing compressor API with pneumatics
-                                    </p>
-                                </div>
-                            </div>
-
-                            <div class="swiper-slide">
-                                <div class="skills-block">
-                                    <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="60" height="60"
-                                        viewBox="0 0 172 172" style="fill: #000000">
-                                        <g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1"
-                                            stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10"
-                                            stroke-dasharray="" stroke-dashoffset="0" font-family="none"
-                                            font-weight="none" font-size="none" text-anchor="none"
-                                            style="mix-blend-mode: normal">
-                                            <path d="M0,172v-172h172v172z" fill="none"></path>
-                                            <g fill="#314e59">
-                                                <path
-                                                    d="M32.25,32.29199v107.45801h107.54199v-107.45801zM43,43.04199h21.5v21.479h-21.5zM75.25,43.04199h21.52099v21.479h-21.52099zM107.52099,43.04199h21.521v21.479h-21.521zM43,75.27099h21.5v21.5h-21.5zM75.25,75.27099h21.52099v21.5h-21.52099zM107.52099,75.27099h21.521v21.5h-21.521zM43,107.52099h21.5v21.47901h-21.5zM75.25,107.52099h21.52099v21.47901h-21.52099zM107.52099,107.52099h21.521v21.47901h-21.521z">
-                                                </path>
-                                            </g>
-                                        </g>
-                                    </svg>
-                                    <div class="speedcube">
-                                        <span>Speedcubing</span>
-                                        <p class="separator">
-                                            I have had a passion for speedcubing and solving various puzzles ever since
-                                            I was twelve. My favorite events are the 3x3 (sub-13) and 5x5
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- End testimonial item -->
-                        </div>
-                        <div class="swiper-pagination"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- End Skills & Interests Section -->
-
-        <!-- ======= Portfolio Section ======= -->
-        <div id="portfolio" class="paddsections">
-            <div class="container">
-                <div class="section-title text-center">
-                    <h2>Portfolio</h2>
-                </div>
-            </div>
-
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-12 d-flex justify-content-center gx-5">
-                        <ul id="portfolio-flters">
-                            <li data-filter="*" class="filter-active">All</li>
-                            <li data-filter=".filter-general">General</li>
-                            <li data-filter=".filter-websites">Websites</li>
-                            <li data-filter=".filter-games">Games</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="row portfolio-container">
-                    <div class="col-lg-6 col-md-6 portfolio-item filter-websites">
-                        <img src="assets/img/portfolio/portfolio(1).png" class="img-fluid rounded"
-                            alt="Perfect Salon Website">
-                        <div class="mb-lg-4 portfolio-info">
-                            <p>Perfect Salon & Nails</p>
-                            <a href="perfect-salon.html" class="preview-link" title="More Details"><i
-                                    class="bx bx-expand"></i></a>
-                            <a href="https://perfectsalonandnails.com" target="_blank" class="details-link"
-                                title="Link"><i class="bx bx-link"></i></a>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-6 col-md-6 portfolio-item filter-general">
-                        <img src="assets/img/portfolio/portfolio(2).png" class="img-fluid rounded" alt="Music Player">
-                        <div class="mb-lg-4 portfolio-info">
-                            <p>LooFi</p>
-                            <a href="music-player.html" class="preview-link" title="More Details"><i
-                                    class="bx bx-expand"></i></a>
-                            <a href="https://edmond0511.github.io/music-player/" target="_blank" class="details-link"
-                                title="Link"><i class="bx bx-link"></i></a>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-6 col-md-6 portfolio-item filter-general ">
-                        <img src="assets/img/portfolio/portfolio(3).png" class="img-fluid rounded" alt="Planttum">
-                        <div class="mb-lg-4 portfolio-info">
-                            <p>Planttum</p>
-                            <a href="planttum.html" class="preview-link" title="More Details"><i
-                                    class="bx bx-expand"></i></a>
-                            <a href="https://github.com/Edmond0511/ece198-plant-monitor" target="_blank"
-                                class="details-link" title="Link"><i class="bx bx-link"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <!-- Desktop file icons -->
+        <div class="desktop-icons">
+            <button class="desktop-icon" data-open="about">
+                <span class="icon-glyph"><ion-icon name="person-outline"></ion-icon></span>
+                <span class="icon-label">About Me</span>
+            </button>
+            <button class="desktop-icon" data-open="resume">
+                <span class="icon-glyph"><ion-icon name="document-text-outline"></ion-icon></span>
+                <span class="icon-label">Resume.pdf</span>
+            </button>
+            <button class="desktop-icon" data-open="contact">
+                <span class="icon-glyph"><ion-icon name="mail-outline"></ion-icon></span>
+                <span class="icon-label">Contact</span>
+            </button>
         </div>
 
-        <!-- End Portfolio Section -->
+        <!-- Window container — windows injected here by JS -->
+        <div class="window-layer" id="window-layer"></div>
 
-        <!-- ======= Contact Section ======= -->
-        <div id="contact" class="paddsection">
-            <div class="container">
-                <div class="contact-block1">
-                    <div class="row">
-                        <div class="section-title text-center">
-                            <h2>Get In Touch</h2>
-                        </div>
-
-                        <div class="contact-contact">
-                            <div class="contact-details">
-                                <div class="col-lg-3 detail">
-                                    <i class="bi bi-telephone"></i>
-                                    <h5>Phone Number</h5>
-                                    <h6>(647)-822-5741</h6>
-                                </div>
-
-                                <div class="col-lg-3 detail">
-                                    <i class="bi bi-envelope"></i>
-                                    <h5>Direct E-mail</h5>
-                                    <h6>edmondyang11@gmail.com</h6>
-                                </div>
-                            </div>
-
-                            <div class="container">
-                                <form action="https://formspree.io/f/xrgravvr" method="POST" id="my-form">
-                                    <div class="form-group">
-                                        <input type="text" id="firstName" name="First Name" placeholder="Full Name" />
-                                    </div>
-
-                                    <div class="form-group">
-                                        <input type="email" id="email" name="E-Mail" placeholder="E-mail" />
-                                    </div>
-
-                                    <div class="form-group">
-                                        <input type="text" id="Subject" name="Subject" placeholder="Subject" />
-                                    </div>
-
-                                    <div class="form-group">
-                                        <textarea name="Message" id="massage" cols="30" rows="8"
-                                            placeholder="Message"></textarea>
-                                    </div>
-                                    <div class="submit-button">
-                                        <button type="submit">Submit</button>
-                                    </div>
-                                </form>
-                            </div>
-                            <div id="status"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- End Contact Section -->
     </main>
-    <!-- End #main -->
 
-    <!-- ======= Footer ======= -->
-    <div id="footer" class="text-center">
-        <div class="container">
-            <div class="socials-media text-center">
-                <ul class="list-unstyled">
-                    <li>
-                        <a href="https://github.com/Edmond0511" target="_blank"><i class="bi bi-github"></i></a>
-                    </li>
-                    <li>
-                        <a href="mailto:edmondyang11@gmail.com" target="_blank"><i class="bi bi-envelope"></i></a>
-                    </li>
-                    <li>
-                        <a href="https://www.linkedin.com/in/edmond-yang11" target="_blank"><i
-                                class="bi bi-linkedin"></i></a>
-                    </li>
-                </ul>
+    <!-- ================= DOCK ================= -->
+    <nav class="dock" id="dock">
+        <button class="dock-app app-mail" data-open="contact" aria-label="Mail">
+            <img src="assets/img/mail_icon.png" alt="" draggable="false">
+        </button>
+        <button class="dock-app app-notes" data-open="about" aria-label="Notes">
+            <img src="assets/img/note_icon.png" alt="" draggable="false">
+        </button>
+        <button class="dock-app app-ghostty" data-open="terminal" aria-label="Ghostty">
+            <img src="assets/img/ghostty_icon.png" alt="" draggable="false">
+        </button>
+        <span class="dock-divider"></span>
+        <a class="dock-app app-github" href="https://github.com/Edmond0511" target="_blank" rel="noopener"
+            aria-label="GitHub">
+            <img src="assets/img/github_icon.png" alt="" draggable="false">
+        </a>
+        <a class="dock-app app-linkedin" href="https://www.linkedin.com/in/edmond-yang11" target="_blank" rel="noopener"
+            aria-label="LinkedIn">
+            <img src="assets/img/linkedin_icon.png" alt="" draggable="false">
+        </a>
+        <span class="dock-divider"></span>
+        <button class="dock-app app-trash" data-open="trash" aria-label="Trash">
+            <img src="assets/img/bin_icon.png" alt="" draggable="false">
+        </button>
+    </nav>
+
+    <!-- ================= WINDOW TEMPLATES ================= -->
+    <template id="tpl-about">
+        <article class="content notes-paper">
+            <header class="notes-header">
+                <h2>Heyo!</h2>
+            </header>
+            <p>Hey, I'm Edmond</p>
+            <p>I'm a 4th year <strong>Computer Engineering</strong> student at the <strong>University of
+                    Waterloo</strong></p>
+            <p class="notes-section">these days, I'm:</p>
+            <ul class="notes-list">
+
+                <li>building <strong>NoteCal</strong>, a React Native nutrition tracking app that automatically
+                    parses and calculates your calories and macros from natural-language food entries</li>
+                <li>seeking <strong>2026 fall &amp; 2027 new grad</strong> opportunities! <button type="button"
+                        class="notes-cta" data-open="contact">Get in touch!</button></li>
+            </ul>
+            <p class="notes-section">before that, I've:</p>
+            <ul class="notes-list">
+                <li>built mobile and web features for the dealership & payments platform at <strong>Dealer-FX</strong>
+                </li>
+                <li>built C#/.NET tooling for inline pipeline inspection at <strong>Zomp Inc.</strong></li>
+                <li>wrote Python signal processing pipelines to analyze sensor telemetry and tune BLE/LoRaWAN
+                    calibration at <strong>Mero Technologies</strong></li>
+                <li>led SEO and event data work across 10+ microsites at <strong>Generis</strong></li>
+            </ul>
+        </article>
+    </template>
+
+    <template id="tpl-resume">
+        <article class="content content-flush">
+            <div class="resume-toolbar">
+                <div class="resume-toolbar-info">
+                    <strong>resume.pdf</strong>
+                    <span>1 page</span>
+                </div>
+                <a class="resume-download" href="assets/img/01_EDMOND_YANG_RESUME.pdf"
+                    download="Edmond_Yang_Resume.pdf">
+                    <svg viewBox="0 0 16 16" width="13" height="13">
+                        <path fill="currentColor"
+                            d="M8 1v9.2l3.1-3.1 1.1 1L8 12.4 3.8 8.1l1.1-1L8 10.2V1zM2 13h12v2H2z" />
+                    </svg>
+                    Download
+                </a>
             </div>
-            <span class="dot"></span>
-            <span class="dot"></span>
-            <span class="dot"></span>
-            <span class="dot"></span>
-            <p class="mb-5" style="margin: 0px;">&copy; 2023 <strong>Edmond Yang</strong></p>
+            <iframe class="resume-frame" src="assets/img/01_EDMOND_YANG_RESUME.pdf#toolbar=0&navpanes=0"
+                title="Resume PDF"></iframe>
+        </article>
+    </template>
+
+    <template id="tpl-contact">
+        <article class="content mail-compose">
+            <div class="mail-fields">
+                <label><span class="mail-label">To:</span><input type="email" value="edmondyang11@gmail.com"
+                        readonly /></label>
+                <label><span class="mail-label">From:</span><input type="email" name="email" form="contact-form"
+                        placeholder="your@email.com" required /></label>
+                <label><span class="mail-label">Subject:</span><input type="text" name="Subject" form="contact-form"
+                        placeholder="new message" required /></label>
+            </div>
+            <form id="contact-form" action="https://formspree.io/f/xrgravvr" method="POST" class="mail-body-wrap">
+                <textarea name="Message" placeholder="Write your message…" required></textarea>
+                <div class="mail-actions">
+                    <button type="submit" class="mail-send">
+                        <svg viewBox="0 0 16 16" width="12" height="12">
+                            <path fill="currentColor" d="M1 8l14-7-5 15-3-6z" />
+                        </svg>
+                        Send
+                    </button>
+                </div>
+            </form>
+        </article>
+    </template>
+
+    <template id="tpl-terminal">
+        <article class="content terminal-body">
+            <div class="terminal-line"><span class="prompt">edmond@ghostty</span> <span class="path">~</span> ❯ whoami
+            </div>
+            <div class="terminal-out">edmond yang — computer engineering student @ uwaterloo</div>
+            <div class="terminal-line"><span class="prompt">edmond@ghostty</span> <span class="path">~</span> ❯ ls
+                skills/languages</div>
+            <div class="terminal-out">C# C++ Python JavaScript TypeScript SQL SystemVerilog HTML5 CSS</div>
+            <div class="terminal-line"><span class="prompt">edmond@ghostty</span> <span class="path">~</span> ❯ ls
+                skills/frameworks</div>
+            <div class="terminal-out">.NET Core ASP.NET EF Core xUnit Angular React Native Expo</div>
+            <div class="terminal-line"><span class="prompt">edmond@ghostty</span> <span class="path">~</span> ❯ ls
+                skills/tools</div>
+            <div class="terminal-out">Azure Azure DevOps Docker PostgreSQL Git Supabase Postman Google Cloud Platform
+            </div>
+            <div class="terminal-line"><span class="prompt">edmond@ghostty</span> <span class="path">~</span> ❯ cat
+                now.txt</div>
+            <div class="terminal-out">seeking 2026 fall &amp; 2027 new grad opportunities · open to chat</div>
+            <div class="terminal-line"><span class="prompt">edmond@ghostty</span> <span class="path">~</span> ❯ <span
+                    class="cursor"></span></div>
+        </article>
+    </template>
+
+    <template id="tpl-trash">
+        <article class="content finder-list">
+            <div class="finder-list-header">
+                <span>Name</span>
+                <span>Kind</span>
+                <span>Date Deleted</span>
+            </div>
+            <ul class="finder-rows">
+                <li class="finder-row">
+                    <span class="row-name"><span class="row-icon">🗑️</span><a
+                            href="https://www.espn.com/nba/team/stats/_/name/okc/oklahoma-city-thunder" target="_blank"
+                            rel="noopener noreferrer">frauds</a></span>
+                    <span class="row-meta">Web Link</span>
+                    <span class="row-meta">Today</span>
+                </li>
+            </ul>
+            <p class="finder-footer">1 item</p>
+        </article>
+    </template>
+
+    <!-- Mobile fallback shown when the desktop is too small -->
+    <div class="mobile-view" id="mobile-view" hidden>
+        <header class="mobile-header">
+            <h1>Edmond Yang</h1>
+            <p>Computer Engineering · University of Waterloo</p>
+        </header>
+        <section class="mobile-apps">
+            <button class="mobile-app" data-open="about"><span class="mobile-glyph"><ion-icon
+                        name="person-outline"></ion-icon></span><span>About</span></button>
+            <button class="mobile-app" data-open="resume"><span class="mobile-glyph"><ion-icon
+                        name="document-text-outline"></ion-icon></span><span>Resume</span></button>
+            <button class="mobile-app" data-open="contact"><span class="mobile-glyph"><ion-icon
+                        name="mail-outline"></ion-icon></span><span>Contact</span></button>
+            <a class="mobile-app" href="https://github.com/Edmond0511" target="_blank" rel="noopener"><span
+                    class="mobile-glyph"><ion-icon name="logo-github"></ion-icon></span><span>GitHub</span></a>
+            <a class="mobile-app" href="https://www.linkedin.com/in/edmond-yang11" target="_blank" rel="noopener"><span
+                    class="mobile-glyph"><ion-icon name="logo-linkedin"></ion-icon></span><span>LinkedIn</span></a>
+        </section>
+        <div class="mobile-sheet" id="mobile-sheet" hidden>
+            <button class="mobile-close" id="mobile-close" aria-label="Close">✕</button>
+            <div class="mobile-sheet-body" id="mobile-sheet-body"></div>
         </div>
     </div>
-    <!-- End Footer -->
 
-    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
-            class="bi bi-arrow-up-short"></i></a>
-
-    <!-- Vendor JS Files -->
-    <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
-    <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
-    <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
-    <script src="assets/vendor/typed.js/typed.min.js"></script>
-    <script src="assets/vendor/cursor/cursor.js"></script>
-
-    <!-- Template Main JS File -->
-    <script src="assets/js/main.js"></script>
+    <script src="assets/js/desktop.js" defer></script>
+    <script src="assets/vendor/cursor/cursor.js" defer></script>
 </body>
 
 </html>

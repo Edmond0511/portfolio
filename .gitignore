@@ -1,0 +1,14 @@
+# Claude Code / agent artifacts
+.claude/
+.claude.json
+.claude.local.json
+CLAUDE.md
+CLAUDE.local.md
+.superpowers/
+.cursor/
+.cursorrules
+.aider*
+.continue/
+
+# macOS
+.DS_Store

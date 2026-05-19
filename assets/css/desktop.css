@@ -645,112 +645,79 @@ body {
 }
 
 /* ========================================================================
-   MOBILE FALLBACK
+   RESPONSIVE — phone / small tablet
+   On narrow or touch-first devices the windowed desktop adapts:
+   the dock shrinks, the left-rail icons hide, and windows take the full
+   viewport so there's no overlap or off-screen content.
    ====================================================================== */
-.mobile-view {
-    position: fixed;
-    inset: 0;
-    background:
-        radial-gradient(ellipse 60% 40% at 20% 15%, rgba(255, 138, 76, 0.55), transparent 70%),
-        radial-gradient(ellipse 55% 45% at 85% 25%, rgba(255, 90, 138, 0.55), transparent 70%),
-        radial-gradient(ellipse 75% 50% at 60% 90%, rgba(91, 108, 255, 0.65), transparent 70%),
-        linear-gradient(180deg, #1a1f4a 0%, #3a1d5c 50%, #6b2a5c 100%);
-    background-attachment: fixed;
-    color: #fff;
-    overflow-y: auto;
-    padding: max(env(safe-area-inset-top), 28px) 20px 40px;
-    z-index: 1;
-}
-.mobile-header {
-    text-align: center;
-    margin-bottom: 36px;
-    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
-}
-.mobile-header h1 {
-    font-size: 36px; font-weight: 700;
-    margin: 0 0 6px;
-    letter-spacing: -0.5px;
-}
-.mobile-header p {
-    margin: 0;
-    opacity: 0.85;
-    font-size: 14px;
-}
-.mobile-apps {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 18px 12px;
-    max-width: 400px;
-    margin: 0 auto;
-}
-.mobile-app {
-    display: flex; flex-direction: column; align-items: center;
-    gap: 6px;
-    color: #fff;
-    font-size: 12px;
-    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
-    text-align: center;
-}
-.mobile-glyph {
-    width: 56px; height: 56px;
-    border-radius: 14px;
-    display: flex; align-items: center; justify-content: center;
-    background: rgba(255, 255, 255, 0.18);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border: 0.5px solid rgba(255, 255, 255, 0.25);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-    color: #fff;
-}
-.mobile-glyph ion-icon {
-    font-size: 30px;
-    --ionicon-stroke-width: 28px;
+@media (max-width: 768px), (pointer: coarse) and (max-width: 900px) {
+    :root {
+        --dock-h: 60px;
+        --dock-pad-bottom: 6px;
+    }
+
+    /* Compact dock — fits 7 icons across an iPhone-width viewport */
+    .dock {
+        height: 60px;
+        gap: 2px;
+        padding: 5px 8px;
+        border-radius: 17px;
+        max-width: calc(100vw - 12px);
+        bottom: max(env(safe-area-inset-bottom), var(--dock-pad-bottom));
+    }
+    .dock-app {
+        width: 44px; height: 44px;
+        border-radius: 11px;
+    }
+    .dock-divider {
+        height: 30px;
+        margin: 0 2px;
+    }
+    /* Hide dock tooltips on touch — they'd stick around after taps */
+    .dock-app[aria-label]:hover::after { display: none; }
+
+    /* Shrink the left-rail desktop icons so they fit on a phone */
+    .desktop-icons {
+        top: max(env(safe-area-inset-top), 14px);
+        left: 14px;
+        gap: 14px;
+    }
+    .desktop-icon { width: 72px; }
+    .icon-glyph { width: 56px; height: 56px; border-radius: 15px; }
+    .icon-glyph ion-icon { font-size: 28px; }
+    .icon-label { font-size: 11.5px; }
+
+    /* Windows fill the viewport (one at a time on mobile). Inline width/
+       height/left/top set by JS are overridden via !important. */
+    .window {
+        left: 8px !important;
+        top: max(env(safe-area-inset-top), 12px) !important;
+        width: calc(100vw - 16px) !important;
+        height: calc(100dvh - var(--dock-h) - 32px) !important;
+        min-width: 0; min-height: 0;
+        border-radius: 14px;
+    }
+    .resize-handle { display: none; }
+    .titlebar { cursor: default; }
+
+    /* Tighten window content padding on phones */
+    .notes-paper { padding: 22px 22px 26px; font-size: 15px; }
+    .notes-paper h2 { font-size: 24px; }
+    .proj-body { padding: 18px 20px 22px; }
+    .mail-fields { padding: 8px 12px; }
+    .resume-toolbar { padding: 8px 12px; }
+    .finder-list-header, .finder-row { padding: 6px 12px; }
 }
 
-.mobile-sheet {
-    position: fixed;
-    inset: 32px 0 0 0;
-    background: rgba(28, 28, 32, 0.96);
-    backdrop-filter: blur(30px);
-    -webkit-backdrop-filter: blur(30px);
-    border-radius: 14px 14px 0 0;
-    box-shadow: 0 -8px 30px rgba(0, 0, 0, 0.55);
-    color: var(--text);
-    z-index: 100;
-    display: flex; flex-direction: column;
-    animation: sheet-slide 0.28s cubic-bezier(0.3, 1, 0.4, 1);
-}
-.mobile-close {
-    position: absolute; top: 12px; right: 14px;
-    width: 28px; height: 28px;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.10);
-    color: var(--text);
-    font-size: 14px;
-    display: flex; align-items: center; justify-content: center;
-    z-index: 2;
-}
-.mobile-sheet-body {
-    flex: 1;
-    overflow-y: auto;
-    padding-top: 0;
-}
-@keyframes sheet-slide {
-    from { transform: translateY(100%); opacity: 0.5; }
-    to { transform: translateY(0); opacity: 1; }
-}
-
-/* ---------- breakpoints ---------- */
-@media (max-width: 768px), (pointer: coarse) and (max-width: 1024px) {
-    .desktop, .menubar, .dock { display: none !important; }
-    body { overflow: auto; background: transparent; }
-}
-@media (min-width: 769px) {
-    .mobile-view { display: none !important; }
+/* Very narrow phones — squeeze the dock a touch more so all icons fit */
+@media (max-width: 360px) {
+    .dock { gap: 1px; padding: 5px 6px; }
+    .dock-app { width: 40px; height: 40px; }
+    .dock-divider { margin: 0 1px; }
 }
 
 /* ---------- reduced motion ---------- */
 @media (prefers-reduced-motion: reduce) {
-    .window, .dock-app, .mobile-sheet { animation: none !important; transition: none !important; }
+    .window, .dock-app { animation: none !important; transition: none !important; }
     .cursor { animation: none; }
 }

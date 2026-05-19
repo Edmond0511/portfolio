@@ -340,11 +340,17 @@ function wireMailForm(form, win) {
 /* ---------- DESKTOP ICONS: SELECT + DOUBLE-CLICK ---------- */
 function wireDesktopIcons(wm) {
     const icons = document.querySelectorAll('.desktop-icon');
+    const isTouch = window.matchMedia('(pointer: coarse)').matches;
     icons.forEach(icon => {
         icon.addEventListener('click', e => {
             e.stopPropagation();
             icons.forEach(i => i.classList.remove('selected'));
             icon.classList.add('selected');
+            // On touch devices a single tap opens — double-tap is awkward on phones
+            if (isTouch) {
+                launchWithBounce(icon.dataset.open);
+                wm.open(icon.dataset.open);
+            }
         });
         icon.addEventListener('dblclick', () => {
             launchWithBounce(icon.dataset.open);
@@ -378,54 +384,11 @@ function launchWithBounce(id) {
     setTimeout(() => btn.classList.remove('launching'), 700);
 }
 
-/* ---------- MOBILE FALLBACK ---------- */
-function wireMobile() {
-    const view = document.getElementById('mobile-view');
-    const sheet = document.getElementById('mobile-sheet');
-    const sheetBody = document.getElementById('mobile-sheet-body');
-    const closeBtn = document.getElementById('mobile-close');
-
-    const isMobile = () => window.matchMedia('(max-width: 768px), (pointer: coarse) and (max-width: 1024px)').matches;
-    if (isMobile()) view.hidden = false;
-
-    document.querySelectorAll('.mobile-app[data-open]').forEach(btn => {
-        btn.addEventListener('click', () => {
-            const id = btn.dataset.open;
-            const tpl = document.getElementById(`tpl-${id}`);
-            if (!tpl) return;
-            const app = APPS[id];
-            sheetBody.innerHTML = '';
-            const header = document.createElement('div');
-            header.style.cssText = 'padding: 18px 20px 8px; font-size: 17px; font-weight: 700;';
-            header.textContent = app ? app.title : id;
-            sheetBody.appendChild(header);
-            sheetBody.appendChild(tpl.content.cloneNode(true));
-            // Wire any nested data-open inside the sheet (e.g. portfolio → project)
-            sheetBody.querySelectorAll('[data-open]').forEach(b => {
-                b.addEventListener('click', () => {
-                    const childTpl = document.getElementById(`tpl-${b.dataset.open}`);
-                    const childApp = APPS[b.dataset.open];
-                    if (childTpl) {
-                        sheetBody.innerHTML = '';
-                        const h2 = document.createElement('div');
-                        h2.style.cssText = 'padding: 18px 20px 8px; font-size: 17px; font-weight: 700;';
-                        h2.textContent = childApp ? childApp.title : b.dataset.open;
-                        sheetBody.appendChild(h2);
-                        sheetBody.appendChild(childTpl.content.cloneNode(true));
-                    }
-                });
-            });
-            // Wire contact form
-            const f = sheetBody.querySelector('#contact-form');
-            if (f) wireMailForm(f, sheetBody);
-            sheet.hidden = false;
-        });
-    });
-    closeBtn.addEventListener('click', () => { sheet.hidden = true; });
-}
-
 /* ---------- HELPERS ---------- */
 function clamp(v, min, max) { return Math.min(Math.max(v, min), max); }
+function isMobileViewport() {
+    return window.matchMedia('(max-width: 768px), (pointer: coarse) and (max-width: 900px)').matches;
+}
 function escapeHtml(s) {
     return String(s).replace(/[&<>"']/g, c => ({
         '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
@@ -440,10 +403,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     wireDesktopIcons(wm);
     wireDock(wm);
-    wireMobile();
 
-    // Greeter: open the About window on first load (delay so layout settles)
-    if (!window.matchMedia('(max-width: 768px)').matches) {
+    // Greeter: open the About window on first load (desktop only — on mobile
+    // we want the desktop icons + dock visible as the landing screen).
+    if (!isMobileViewport()) {
         setTimeout(() => {
             wm.open('about');
             requestAnimationFrame(() => wm.fitContent('about'));

@@ -1,7 +1,10 @@
 //credit Franks laboratory on Youtube
 
-
+(() => {
 const canvas = document.getElementById("canvas1");
+const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+if (!canvas || prefersReducedMotion) return;
+
 const ctx = canvas.getContext("2d");
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
@@ -144,3 +147,4 @@ window.addEventListener("mouseout",
 
 init();
 animate();
+})();

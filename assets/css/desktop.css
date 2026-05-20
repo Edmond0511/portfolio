@@ -200,7 +200,38 @@ body {
 /* Resize handles — absolute children naturally stack above the in-flow titlebar/body.
    Sizes/insets are tuned so the handles don't overlap the traffic-light buttons. */
 .resize-handle { position: absolute; }
-.window[data-maxed="1"] .resize-handle { display: none; }
+.window[data-maxed="1"] .resize-handle,
+.window[data-snapped]   .resize-handle { display: none; }
+
+/* Smooth animation when a window commits to a snap zone on mouseup. */
+.window.snap-transition {
+    transition: left   0.2s cubic-bezier(0.25, 1.2, 0.4, 1),
+                top    0.2s cubic-bezier(0.25, 1.2, 0.4, 1),
+                width  0.2s cubic-bezier(0.25, 1.2, 0.4, 1),
+                height 0.2s cubic-bezier(0.25, 1.2, 0.4, 1);
+}
+
+/* Snap-tile preview overlay — single shared element, lives at z-index 1 so
+   the window being dragged stays visually above it. */
+.snap-preview {
+    position: absolute;
+    pointer-events: none;
+    background: var(--accent-soft);
+    border: 1.5px solid var(--accent);
+    border-radius: var(--window-radius);
+    box-shadow: 0 0 0 0.5px rgba(255, 255, 255, 0.18) inset,
+                0 12px 36px rgba(10, 132, 255, 0.28);
+    backdrop-filter: blur(8px) saturate(180%);
+    -webkit-backdrop-filter: blur(8px) saturate(180%);
+    opacity: 0;
+    z-index: 1;
+    transition: left   0.18s cubic-bezier(0.25, 1.2, 0.4, 1),
+                top    0.18s cubic-bezier(0.25, 1.2, 0.4, 1),
+                width  0.18s cubic-bezier(0.25, 1.2, 0.4, 1),
+                height 0.18s cubic-bezier(0.25, 1.2, 0.4, 1),
+                opacity 0.14s ease;
+}
+.snap-preview.visible { opacity: 1; }
 .resize-n  { top: 0;    left: 10px;  right: 10px; height: 5px; cursor: ns-resize; }
 .resize-s  { bottom: 0; left: 10px;  right: 10px; height: 5px; cursor: ns-resize; }
 .resize-e  { top: 10px; bottom: 10px; right: 0;  width: 5px; cursor: ew-resize; }
@@ -718,6 +749,6 @@ body {
 
 /* ---------- reduced motion ---------- */
 @media (prefers-reduced-motion: reduce) {
-    .window, .dock-app { animation: none !important; transition: none !important; }
+    .window, .dock-app, .snap-preview { animation: none !important; transition: none !important; }
     .cursor { animation: none; }
 }

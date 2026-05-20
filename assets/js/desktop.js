@@ -21,6 +21,108 @@ const APPS = {
     'proj-planttum':{ title: 'Planttum',        appName: 'Safari',     w: 580, h: 540, x: 0.38, y: 0.10 },
 };
 
+/* ---------- SNAP TILING (macOS Sequoia-style) ----------
+   Drag a window's titlebar to a screen edge to tile it. The cursor must hold
+   at the edge for SNAP_DELAY ms before the preview overlay appears; once
+   visible, moving between adjacent zones slides the overlay without re-arming
+   the timer. Releasing the drag commits the window to the zone.
+   ------------------------------------------------ */
+const SNAP_EDGE   = 8;     // edge band (px) that triggers half-snap
+const SNAP_CORNER = 80;    // corner-band side length for quadrants
+const SNAP_DELAY  = 300;   // hold time at edge before preview appears
+const SNAP_DOCK_RESERVE = 80;  // --dock-h (72) + --dock-pad-bottom (8)
+let __snapPreview = null;
+
+function detectSnapZone(x, y) {
+    const W = window.innerWidth;
+    const H = window.innerHeight;
+    if (x < SNAP_CORNER && y < SNAP_CORNER) return 'nw';
+    if (x > W - SNAP_CORNER && y < SNAP_CORNER) return 'ne';
+    if (x < SNAP_CORNER && y > H - SNAP_CORNER) return 'sw';
+    if (x > W - SNAP_CORNER && y > H - SNAP_CORNER) return 'se';
+    if (y < SNAP_EDGE) return 'max';
+    if (x < SNAP_EDGE) return 'left';
+    if (x > W - SNAP_EDGE) return 'right';
+    return null;
+}
+
+function zoneRect(zone) {
+    const W = window.innerWidth;
+    const gutter = 8;
+    const top = gutter;
+    const usableH = window.innerHeight - top - SNAP_DOCK_RESERVE;
+    const halfW = (W - gutter * 2) / 2;
+    const halfH = usableH / 2;
+    const rightX = gutter + halfW;
+    const bottomY = top + halfH;
+    switch (zone) {
+        case 'max':   return { left: gutter, top, width: W - gutter * 2, height: usableH };
+        case 'left':  return { left: gutter, top, width: halfW, height: usableH };
+        case 'right': return { left: rightX, top, width: halfW, height: usableH };
+        case 'nw':    return { left: gutter, top, width: halfW, height: halfH };
+        case 'ne':    return { left: rightX, top, width: halfW, height: halfH };
+        case 'sw':    return { left: gutter, top: bottomY, width: halfW, height: halfH };
+        case 'se':    return { left: rightX, top: bottomY, width: halfW, height: halfH };
+    }
+    return null;
+}
+
+function getSnapPreview() {
+    if (__snapPreview && __snapPreview.isConnected) return __snapPreview;
+    const layer = document.getElementById('window-layer');
+    __snapPreview = document.createElement('div');
+    __snapPreview.className = 'snap-preview';
+    layer.insertBefore(__snapPreview, layer.firstChild);
+    return __snapPreview;
+}
+
+function showSnapPreview(zone) {
+    const p = getSnapPreview();
+    const r = zoneRect(zone);
+    if (!r) return;
+    const firstShow = !p.classList.contains('visible');
+    if (firstShow) {
+        // Seed position before fading in so the overlay doesn't slide from (0,0)
+        p.style.left = `${r.left}px`;
+        p.style.top = `${r.top}px`;
+        p.style.width = `${r.width}px`;
+        p.style.height = `${r.height}px`;
+        void p.offsetWidth;
+        p.classList.add('visible');
+    } else {
+        p.style.left = `${r.left}px`;
+        p.style.top = `${r.top}px`;
+        p.style.width = `${r.width}px`;
+        p.style.height = `${r.height}px`;
+    }
+    p.dataset.zone = zone;
+}
+
+function hideSnapPreview() {
+    if (__snapPreview) {
+        __snapPreview.classList.remove('visible');
+        delete __snapPreview.dataset.zone;
+    }
+}
+
+function commitSnap(win, zone) {
+    const r = zoneRect(zone);
+    if (!r) return;
+    win.dataset.snapRestore = JSON.stringify({
+        left: win.style.left,
+        top: win.style.top,
+        width: win.style.width,
+        height: win.style.height,
+    });
+    win.classList.add('snap-transition');
+    win.style.left = `${r.left}px`;
+    win.style.top = `${r.top}px`;
+    win.style.width = `${r.width}px`;
+    win.style.height = `${r.height}px`;
+    win.dataset.snapped = zone;
+    setTimeout(() => win.classList.remove('snap-transition'), 240);
+}
+
 /* ---------- WINDOW MANAGER ---------- */
 class WindowManager {
     constructor(layer) {
@@ -203,8 +305,40 @@ class WindowManager {
         tb.addEventListener('mousedown', e => {
             if (e.target.closest('.traffic')) return;
             if (win.dataset.maxed === '1') return;
-            const rect = win.getBoundingClientRect();
-            drag = { dx: e.clientX - rect.left, dy: e.clientY - rect.top };
+            if (isMobileViewport()) return;
+
+            let rect = win.getBoundingClientRect();
+
+            // If currently snapped, unsnap to pre-snap geometry, anchoring the
+            // restored titlebar so the cursor stays at the same proportional
+            // position along its width (prevents the window jumping out from
+            // under the pointer when you grab a half-snapped window's center).
+            if (win.dataset.snapped) {
+                const restore = JSON.parse(win.dataset.snapRestore || '{}');
+                const rW = parseInt(restore.width, 10) || rect.width;
+                const rH = parseInt(restore.height, 10) || rect.height;
+                const cursorRatio = clamp((e.clientX - rect.left) / rect.width, 0, 1);
+                const newLeft = e.clientX - rW * cursorRatio;
+                const newTop  = Math.max(26, e.clientY - 14);
+                // Strip the post-commit transition so unsnap is instant, not
+                // animated — racing the 240ms timeout from commitSnap.
+                win.classList.remove('snap-transition');
+                win.style.width  = `${rW}px`;
+                win.style.height = `${rH}px`;
+                win.style.left   = `${newLeft}px`;
+                win.style.top    = `${newTop}px`;
+                delete win.dataset.snapped;
+                delete win.dataset.snapRestore;
+                rect = win.getBoundingClientRect();
+            }
+
+            drag = {
+                dx: e.clientX - rect.left,
+                dy: e.clientY - rect.top,
+                candidateZone: null,
+                previewZone: null,
+                timer: null,
+            };
             document.body.style.userSelect = 'none';
         });
         const onMove = e => {
@@ -213,9 +347,42 @@ class WindowManager {
             const y = clamp(e.clientY - drag.dy, 26, window.innerHeight - 60);
             win.style.left = `${x}px`;
             win.style.top = `${y}px`;
+
+            // Snap zone tracking
+            const z = detectSnapZone(e.clientX, e.clientY);
+            if (drag.previewZone) {
+                // Preview already visible — slide between zones, hide if off-edge
+                if (z !== drag.previewZone) {
+                    if (z === null) {
+                        hideSnapPreview();
+                        drag.previewZone = null;
+                    } else {
+                        showSnapPreview(z);
+                        drag.previewZone = z;
+                    }
+                }
+            } else if (z !== drag.candidateZone) {
+                // Arm/disarm the activation timer for a new candidate
+                if (drag.timer) { clearTimeout(drag.timer); drag.timer = null; }
+                drag.candidateZone = z;
+                if (z !== null) {
+                    drag.timer = setTimeout(() => {
+                        showSnapPreview(z);
+                        drag.previewZone = z;
+                        drag.candidateZone = null;
+                        drag.timer = null;
+                    }, SNAP_DELAY);
+                }
+            }
         };
         const onUp = () => {
-            if (drag) document.body.style.userSelect = '';
+            if (!drag) return;
+            if (drag.timer) clearTimeout(drag.timer);
+            if (drag.previewZone) {
+                commitSnap(win, drag.previewZone);
+                hideSnapPreview();
+            }
+            document.body.style.userSelect = '';
             drag = null;
         };
         document.addEventListener('mousemove', onMove);
